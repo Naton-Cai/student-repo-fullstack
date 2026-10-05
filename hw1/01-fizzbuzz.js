@@ -45,13 +45,9 @@ function fizzBuzz(input) {
     return output;
 }
 
-input = parseInt(process.argv[2], 10);
-if (isNaN(input)) {
-    console.log("Please provide a number")
-    return;
-}
-
-//iterate from 1 -> input and then appending to array according to the assignment
-
-answer = fizzBuzz(input);
-console.log(answer);
+console.log('Input: 3');
+console.log('Output:', fizzBuzz(3));
+console.log('Input: 5');
+console.log('Output:', fizzBuzz(5));
+console.log('Input: 15');
+console.log('Output:', fizzBuzz(15));
