@@ -22,11 +22,21 @@ Input: nums = [3,3], target = 6
 Output: [0,1]
 
 **/
+function twoSum(inputArray) {
+    outputArray = [];
+    //iterate through all possible combinations of numbers, ignoring duplicates pairs and pairs using the same index
+    for (let i = 0; i < inputArray.length; i++) {
+        for (let y = i + 1; y < inputArray.length; y++) {
+            if (inputArray[i] + inputArray[y] == inputTarget) {
+                outputArray.push([i, y]);
+            }
+        }
+    }
+    return outputArray
+}
 
 inputArray = JSON.parse(process.argv[2]);
 inputTarget = parseInt(process.argv[3], 10);
-matrix = [];
-outputArray = [];
 if (!Array.isArray(inputArray)) {
     console.log("array is missing or not formated correctly, arrays should be in the format '4,2,3'");
     return;
@@ -37,17 +47,5 @@ if (isNaN(inputTarget)) {
     return;
 }
 
-//iterate through all possible combinations of numbers, ignoring duplicates pairs and pairs using the same index
-for (let i = 0; i < inputArray.length; i++) {
-    matrix[i] = [];
-    for (let y = i + 1; y < inputArray.length; y++) {
-        matrix[i][y] = inputArray[i] + inputArray[y];
-        if (inputArray[i] + inputArray[y] == inputTarget) {
-            outputArray.push([i, y]);
-        }
-    }
-}
-
-
-
-console.log(outputArray);
+output = twoSum(inputArray)
+console.log(output);
