@@ -23,14 +23,15 @@ Output: [0,1]
 
 **/
 function twoSum(input, target) {
-    //iterate through all possible combinations of numbers
-    for (let i = 0; i < input.length; i++) {
-        for (let y = i + 1; y < input.length; y++) {
-            if (input[i] + input[y] == target) {
-                return [i, y];
-            }
-        }
+  // iterate through all possible combinations of numbers
+  for (let i = 0; i < input.length; i += 1) {
+    for (let j = i + 1; j < input.length; j += 1) {
+      if (input[i] + input[j] === target) {
+        return [i, j];
+      }
     }
+  }
+  return [];
 }
 console.log('Input: [2,7,11,15], 9');
 console.log('Output:', twoSum([2, 7, 11, 15], 9));

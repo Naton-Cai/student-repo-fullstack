@@ -27,22 +27,22 @@ Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13"
 
 **/
 function fizzBuzz(input) {
-    output = [];
-    for (let i = 1; i <= input; i++)
-        if (i % 3 == 0 && i % 5 == 0) {
-            output.push('FizzBuzz')
-        }
-        else if (i % 3 == 0) {
-            output.push('Fizz')
-        }
-        else if (i % 5 == 0) {
-            output.push('Buzz')
-        }
-        else {
-            //convert the int into string to match the assignment
-            output.push(String(i))
-        }
-    return output;
+  const output = [];
+  for (let i = 1; i <= input; i += 1) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      output.push('FizzBuzz');
+    }
+    else if (i % 3 === 0) {
+      output.push('Fizz');
+    }
+    else if (i % 5 === 0) {
+      output.push('Buzz');
+    } else {
+      // convert the int into string to match the assignment
+      output.push(String(i));
+    }
+  }
+  return output;
 }
 
 console.log('Input: 3');
