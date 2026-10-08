@@ -22,3 +22,20 @@ Input: nums = [3,3], target = 6
 Output: [0,1]
 
 **/
+function twoSum(input, target) {
+  // iterate through all possible combinations of numbers
+  for (let i = 0; i < input.length; i += 1) {
+    for (let j = i + 1; j < input.length; j += 1) {
+      if (input[i] + input[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return [];
+}
+console.log('Input: [2,7,11,15], 9');
+console.log('Output:', twoSum([2, 7, 11, 15], 9));
+console.log('Input: [3,2,4], 6');
+console.log('Output:', twoSum([3, 2, 4], 6));
+console.log('Input: [3,3], 6');
+console.log('Output:', twoSum([3, 3], 6));
