@@ -22,7 +22,7 @@ const server = http.createServer((req, res) => {
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
   console.log(pathname);
 
-  // if the path name is one of the routes return a 404 error
+  // if the path name is not one of the routes return a 404 error
   if (!routes.includes(pathname)) {
     res.writeHead(404, { 'Content-Type': 'text/html' });
     res.end('<h1>404 - page not found</h1>');
@@ -41,6 +41,20 @@ const server = http.createServer((req, res) => {
     case '/redirected':
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end('<h1>You have been redirected!</h1>');
+      break;
+    case '/cache':
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'max-age=86400',
+      });
+      res.end('<h1>this resource was cached</h1>');
+      break;
+    case '/cookie':
+      res.writeHead(200, {
+        'Content-Type': 'text/plain',
+        'Set-Cookie': 'hello=world',
+      });
+      res.end('cookies\u2026… yummm');
       break;
     default:
       res.writeHead(200, { 'Content-Type': 'text/html' });
