@@ -13,17 +13,40 @@ const port = process.env.PORT || 5001;
 
 const server = http.createServer((req, res) => {
   const routes = [
-    'welcome',
-    'redirect',
-    'redirected',
-    'cache',
-    'cookie',
-    'other',
+    '/welcome',
+    '/redirect',
+    '/redirected',
+    '/cache',
+    '/cookie',
   ];
+  const { pathname } = new URL(req.url, `http://${req.headers.host}`);
+  console.log(pathname);
 
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write('Node Routing Exercise');
-  res.end();
+  // if the path name is one of the routes return a 404 error
+  if (!routes.includes(pathname)) {
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.end('<h1>404 - page not found</h1>');
+    return;
+  }
+
+  switch (pathname) {
+    case '/welcome':
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('<h1>Welcome!</h1>');
+      break;
+    case '/redirect':
+      res.writeHead(302, { Location: '/redirected' });
+      res.end();
+      break;
+    case '/redirected':
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('<h1>You have been redirected!</h1>');
+      break;
+    default:
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write('Node Routing Exercise');
+      res.end();
+  }
 });
 
 server.listen(port, () => {
