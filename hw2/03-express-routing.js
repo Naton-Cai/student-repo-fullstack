@@ -27,7 +27,21 @@ app.get('/', (req, res) => {
   res.send('Express Routing Exercise');
 });
 
-// Add your code here
+app.get('/welcome', (req, res) => {
+  res.status(200);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send('<h1>Welcome!</h1>');
+});
+
+app.get('/redirect', (req, res) => {
+  res.redirect(302, '/redirected');
+});
+
+app.get('/redirected', (req, res) => {
+  res.status(200);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send('<h1>You have been redirected!</h1>');
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
