@@ -20,6 +20,10 @@ const calculateChange = function calculateChange(input) {
     return 'Error: the number is too large';
   }
 
+  if (input < 0) {
+    return 'Error: the number cannot be negative';
+  }
+
   let remainder = Math.round(input * 100);
   const change = {};
 
@@ -50,3 +54,5 @@ console.log(calculateChange('No Change'));
 // 'No Change' ==> Error: this is not a number
 console.log(calculateChange('0.01'));
 // '0.01' ==> Error: this is not a number
+console.log(calculateChange(-1));
+// '-1.00' ==> Error: Error: the number cannot be negative
