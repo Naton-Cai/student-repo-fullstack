@@ -20,7 +20,6 @@ const server = http.createServer((req, res) => {
     '/cookie',
   ];
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
-  console.log(pathname);
 
   // if the path name is not one of the routes return a 404 error
   if (!routes.includes(pathname)) {
