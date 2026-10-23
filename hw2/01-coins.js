@@ -12,6 +12,10 @@ const COINS = [
 ];
 
 const calculateChange = function calculateChange(input) {
+  if (!Number.isFinite(input)) {
+    return 'Error: this is not a number';
+  }
+
   if (input > MAX_AMOUNT) {
     return 'Error: the number is too large';
   }
@@ -40,3 +44,9 @@ console.log(calculateChange(0.03));
 // $0.03 ==> 3 pennies
 console.log(calculateChange(0.01));
 // $0.01 ==> 1 penny
+console.log(calculateChange(0));
+// $0.00 ==> 0
+console.log(calculateChange('No Change'));
+// 'No Change' ==> Error: this is not a number
+console.log(calculateChange('0.01'));
+// '0.01' ==> Error: this is not a number
