@@ -10,7 +10,7 @@ const port = process.env.PORT || 5001;
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/form', (req, res) => {
-  res.sendFile(path.join(__dirname, 'form.html'));
+  res.sendFile(path.join(__dirname, 'public', 'form.html'));
 });
 
 app.post('/submit', (req, res) => {
