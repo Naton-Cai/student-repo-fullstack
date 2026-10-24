@@ -1,4 +1,4 @@
-/* * Exercise 01 - Coins * */
+/* Exercise 01 - Coins */
 
 // Add your function here
 const MAX_AMOUNT = 100;
