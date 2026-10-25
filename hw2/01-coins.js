@@ -55,4 +55,4 @@ console.log(calculateChange('No Change'));
 console.log(calculateChange('0.01'));
 // '0.01' ==> Error: this is not a number
 console.log(calculateChange(-1));
-// '-1.00' ==> Error:the number cannot be negative
+// '-1.00' ==> Error: the number cannot be negative
