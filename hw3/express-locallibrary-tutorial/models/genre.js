@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+/* eslint-disable no-underscore-dangle */
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const GenreSchema = new Schema({
   name: {
@@ -12,10 +13,10 @@ const GenreSchema = new Schema({
 });
 
 // Virtual for genre's URL
-GenreSchema.virtual("url").get(function () {
+GenreSchema.virtual('url').get(function getGenreUrl() {
   // We don't use an arrow function as we'll need the this object
   return `/catalog/genre/${this._id}`;
 });
 
 // Export model
-module.exports = mongoose.model("Genre", GenreSchema);
+module.exports = mongoose.model('Genre', GenreSchema);
