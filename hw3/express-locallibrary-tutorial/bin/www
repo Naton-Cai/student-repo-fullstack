@@ -15,19 +15,45 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+// Set up mongoose connection
+const mongoose = require("mongoose");
+
+const mongoDB = "mongodb://localhost:27017/local_library";
+
+connectMongoose()
+  .then(startServer)
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB:", err);
+    process.exit(1);
+  });
+
+async function connectMongoose() {
+  await mongoose.connect(mongoDB);
+
+  // Add connection error handlers
+  mongoose.connection.on("error", (err) => {
+    console.error("MongoDB connection error:", err);
+  });
+
+  mongoose.connection.on("disconnected", () => {
+    console.warn("MongoDB disconnected");
+  });
+}
+
 /**
- * Create HTTP server.
+ * Create HTTP server and listen on provided port, on all network
+ * interfaces, once the MongoDB connection is established.
  */
 
-var server = http.createServer(app);
+var server;
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+function startServer() {
+  server = http.createServer(app);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  server.listen(port);
+  server.on("error", onError);
+  server.on("listening", onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.
