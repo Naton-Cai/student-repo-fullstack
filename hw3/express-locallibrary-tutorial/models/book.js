@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
 
 const BookSchema = new Schema({
