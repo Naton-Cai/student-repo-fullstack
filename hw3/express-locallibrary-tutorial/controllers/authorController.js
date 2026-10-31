@@ -1,6 +1,7 @@
+/* eslint-disable import/order */
 const Author = require('../models/author');
 const Book = require('../models/book');
-const { body, validationResult } = require("express-validator");
+const { body, validationResult } = require('express-validator');
 
 // Display list of all Authors.
 exports.author_list = async (req, res) => {
@@ -36,32 +37,32 @@ exports.author_detail = async (req, res, next) => {
 
 // Display Author create form on GET.
 exports.author_create_get = (req, res) => {
-  res.render("author_form", { title: "Create Author" });
+  res.render('author_form', { title: 'Create Author' });
 };
 
 // Handle Author create on POST.
 exports.author_create_post = [
   // Validate and sanitize fields.
-  body("first_name")
+  body('first_name')
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("First name must be specified.")
+    .withMessage('First name must be specified.')
     .isAlphanumeric()
-    .withMessage("First name has non-alphanumeric characters."),
-  body("family_name")
+    .withMessage('First name has non-alphanumeric characters.'),
+  body('family_name')
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("Family name must be specified.")
+    .withMessage('Family name must be specified.')
     .isAlphanumeric()
-    .withMessage("Family name has non-alphanumeric characters."),
-  body("date_of_birth", "Invalid date of birth")
-    .optional({ values: "falsy" })
+    .withMessage('Family name has non-alphanumeric characters.'),
+  body('date_of_birth', 'Invalid date of birth')
+    .optional({ values: 'falsy' })
     .isISO8601()
     .toDate(),
-  body("date_of_death", "Invalid date of death")
-    .optional({ values: "falsy" })
+  body('date_of_death', 'Invalid date of death')
+    .optional({ values: 'falsy' })
     .isISO8601()
     .toDate(),
 
@@ -80,8 +81,8 @@ exports.author_create_post = [
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/errors messages.
-      res.render("author_form", {
-        title: "Create Author",
+      res.render('author_form', {
+        title: 'Create Author',
         author,
         errors: errors.array(),
       });
@@ -96,38 +97,38 @@ exports.author_create_post = [
 ];
 
 // Display Author delete form on GET.
-exports.author_delete_get = async (req, res, next) => {
+exports.author_delete_get = async (req, res) => {
   // Get details of author and all their books (in parallel)
   const [author, allBooksByAuthor] = await Promise.all([
     Author.findById(req.params.id).exec(),
-    Book.find({ author: req.params.id }, "title summary").exec(),
+    Book.find({ author: req.params.id }, 'title summary').exec(),
   ]);
 
   if (author === null) {
     // No results.
-    res.redirect("/catalog/authors");
+    res.redirect('/catalog/authors');
     return;
   }
 
-  res.render("author_delete", {
-    title: "Delete Author",
+  res.render('author_delete', {
+    title: 'Delete Author',
     author,
     author_books: allBooksByAuthor,
   });
 };
 
 // Handle Author delete on POST.
-exports.author_delete_post = async (req, res, next) => {
+exports.author_delete_post = async (req, res) => {
   // Get details of author and all their books (in parallel)
   const [author, allBooksByAuthor] = await Promise.all([
     Author.findById(req.params.id).exec(),
-    Book.find({ author: req.params.id }, "title summary").exec(),
+    Book.find({ author: req.params.id }, 'title summary').exec(),
   ]);
 
   if (allBooksByAuthor.length > 0) {
     // Author has books. Render in same way as for GET route.
-    res.render("author_delete", {
-      title: "Delete Author",
+    res.render('author_delete', {
+      title: 'Delete Author',
       author,
       author_books: allBooksByAuthor,
     });
@@ -135,7 +136,7 @@ exports.author_delete_post = async (req, res, next) => {
   }
   // Author has no books. Delete object and redirect to the list of authors.
   await Author.findByIdAndDelete(req.body.authorid);
-  res.redirect("/catalog/authors");
+  res.redirect('/catalog/authors');
 };
 
 // Display Author update form on GET.
