@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  if countries.length
+    ul
+      each c in countries
+          strong= c.name
+          |  – Capital: #{c.capital}
+          br
+
+  else
+    p There are no countries.
