@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  if countries.length
+      each c, i in countries
+        .card
+          if c.flagUrl
+            img(src=c.flagUrl, alt=c.flagAlt)
+          else
+            p No flag available
+          h2 #{c.name}
+          p #{c.population.toLocaleString()} people
+  else
+    p No countries found.
