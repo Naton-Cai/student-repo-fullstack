@@ -10,6 +10,7 @@ const FIELDS = [
   "flag.description",
   "region",
   "leaders",
+  "currencies",
 ].join(",");
 
 let cache = null;
@@ -28,7 +29,22 @@ async function fetchPage(offset) {
   return body.data;
 }
 
-// Turn the raw API record into a flat, safe shape the routes/views can use
+//parses the currencies since a country can have multiple currencies
+function parseCurrencies(raw) {
+  if (!raw) return [];
+  const entries = Array.isArray(raw)
+    ? raw.map((c) => [c?.code, c])
+    : Object.entries(raw);
+  return entries
+    .filter(([, c]) => c)
+    .map(([code, c]) => ({
+      code: c.code ?? code ?? null,
+      name: c.name ?? "Unknown",
+      symbol: c.symbol ?? null,
+    }));
+}
+
+// normalizes the API for use
 function normalize(c) {
   const leaderObj = Array.isArray(c.leaders)
     ? c.leaders.find((l) => l && l.name)
@@ -37,6 +53,7 @@ function normalize(c) {
   return {
     name: c.names?.common ?? "Unknown",
     code: c.codes?.alpha_3 ?? null,
+    currencies: parseCurrencies(c.currencies),
     capital:
       c.capitals?.map((cap) => cap?.name).filter(Boolean).join(", ") ||
       "No capital",
