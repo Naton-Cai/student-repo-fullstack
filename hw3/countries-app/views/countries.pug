@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+  <hr>
+  if countries.length
+      each c in countries
+            h2 #{c.name}
+            | Capital: #{c.capital}
+            br
+            | Currency: 
+            if c.currencies.length
+              each cur, i in c.currencies
+                if i > 0
+                  | , 
+                | #{cur.name}#{cur.symbol ? " (" + cur.symbol + ")" : ""}
+            else
+                | Not available
+            <hr>
+
+  else
+    p There are no countries.

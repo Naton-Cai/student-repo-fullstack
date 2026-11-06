@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  <hr>
+  if regions.length
+    p #{total} countries in #{regions.length} regions
+    each region in regions
+      section
+        h2 #{region.name} (#{region.count})
+        ul
+          each name in region.countries
+            li= name
+  else
+    p No region data found.
