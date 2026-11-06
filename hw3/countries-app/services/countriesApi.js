@@ -14,7 +14,7 @@ const FIELDS = [
 async function fetchPage(offset) {
   const url = `${BASE}?limit=100&offset=${offset}&response_fields=${FIELDS}`;
   const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${process.env.REST_COUNTRIES_API_KEY}` },
+    headers: { Authorization: `Bearer rc_live_8c8cb633c44b4e22b376769131f42f9e` },
   });
   const body = await res.json();
 
