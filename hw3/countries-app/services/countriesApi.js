@@ -3,17 +3,13 @@ require("dotenv").config();
 const BASE = "https://api.restcountries.com/countries/v5";
 const FIELDS = [
   "names.common",
-  "codes.alpha_3",
   "capitals",
   "population",
   "flag.url_svg",
   "flag.description",
   "region",
-  "leaders",
   "currencies",
 ].join(",");
-
-let cache = null;
 
 async function fetchPage(offset) {
   const url = `${BASE}?limit=100&offset=${offset}&response_fields=${FIELDS}`;
@@ -46,13 +42,8 @@ function parseCurrencies(raw) {
 
 // normalizes the API for use
 function normalize(c) {
-  const leaderObj = Array.isArray(c.leaders)
-    ? c.leaders.find((l) => l && l.name)
-    : null;
-
   return {
     name: c.names?.common ?? "Unknown",
-    code: c.codes?.alpha_3 ?? null,
     currencies: parseCurrencies(c.currencies),
     capital:
       c.capitals?.map((cap) => cap?.name).filter(Boolean).join(", ") ||
@@ -64,9 +55,8 @@ function normalize(c) {
   };
 }
 
-async function getAllCountries() {
-  if (cache) return cache;
 
+async function getAllCountries() {
   const all = [];
   let offset = 0;
   while (true) {
@@ -76,8 +66,7 @@ async function getAllCountries() {
     offset += data.objects.length;
   }
 
-  cache = all.map(normalize); // only cached if every page succeeded
-  return cache;
+  return all.map(normalize);
 }
 
 module.exports = { getAllCountries };
