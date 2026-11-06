@@ -7,9 +7,9 @@ router.get('/', async (req, res, next) => {
 
     // group country names by region
     const grouped = data.reduce((acc, c) => {
-      const region = (c.region || '').trim();
+      const region = (c.region || '').trim() || 'Uncategorized';
       if (!acc[region]) acc[region] = [];
-      acc[region].push(c.name);
+      acc[region].push(c.name || 'Unknown');
       return acc;
     }, {});
 
@@ -20,7 +20,11 @@ router.get('/', async (req, res, next) => {
         count: countries.length,
         countries: countries.sort((a, b) => a.localeCompare(b)),
       }))
-      .sort((a, b) => a.name.localeCompare(b.name));
+      .sort((a, b) => {
+        if (a.name === 'Uncategorized') return 1;
+        if (b.name === 'Uncategorized') return -1;
+        return a.name.localeCompare(b.name);
+      });
 
     res.render('regions', {
       title: 'Countries by Region',
