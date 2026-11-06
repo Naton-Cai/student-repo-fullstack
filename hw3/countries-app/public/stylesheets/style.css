@@ -18,3 +18,16 @@ a {
   height: auto;
   border: 1px solid #ddd;
 }
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  padding: 5px;
+  width: 180px;
+  height: 200px;
+  float: left;
+}

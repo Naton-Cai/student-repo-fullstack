@@ -2,22 +2,21 @@ extends layout
 
 block content
   h1= title
+  <hr>
   if countries.length
-    ul
       each c in countries
-        li
-          strong= c.name
-          br
-          | Capital: #{c.capital}
-          br
-          | Currency: 
-          if c.currencies.length
-            each cur, i in c.currencies
-              if i > 0
-                | , 
-              | #{cur.name}#{cur.symbol ? " (" + cur.symbol + ")" : ""}
-          else
-            | Not available
+            h2 #{c.name}
+            | Capital: #{c.capital}
+            br
+            | Currency: 
+            if c.currencies.length
+              each cur, i in c.currencies
+                if i > 0
+                  | , 
+                | #{cur.name}#{cur.symbol ? " (" + cur.symbol + ")" : ""}
+            else
+                | Not available
+            <hr>
 
   else
     p There are no countries.
